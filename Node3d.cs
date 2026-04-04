@@ -1,10 +1,17 @@
 using Godot;
-using System;
 
+[Tool]
 public partial class Node3d : Node3D
 {
+    [Export]
+    public NodePath PlanetGeneratorPath { get; set; } = "PlanetGenerator";
+
     public override void _Ready()
     {
-        GD.Print("C# is running!");
+        if (HasNode(PlanetGeneratorPath))
+        {
+            PlanetGenerator planetGenerator = GetNode<PlanetGenerator>(PlanetGeneratorPath);
+            planetGenerator.GeneratePlanet();
+        }
     }
 }
