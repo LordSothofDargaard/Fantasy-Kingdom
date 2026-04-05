@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="PlanetSettings" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Scripts/Generation/PlanetSettings.cs" id="1_settings"]
+
+[resource]
+script = ExtResource("1_settings")
+PlanetSize = 1
+LandmassMode = 1
+WaterPercent = 55.0
+WetlandsPercent = 8.0
+PlainsPercent = 22.0
+ForestPercent = 10.0
+DesertPercent = 5.0
+MountainPercent = 15.0
+NoiseScale = 1.35
+MountainNoiseScale = 3.2
+ContinentNoiseScale = 0.38
+ContinentWarpScale = 0.85
+ContinentInfluence = 0.72
+ContinentSharpness = 1.55
+ContinentWarpStrength = 0.22
+TerrainSeed = 1337
+ContinentSeed = 4242
+MountainSeed = 7331
+WaterHeight = 0.05
+WetlandsHeight = 0.12
+PlainsHeight = 0.28
+ForestHeight = 0.36
+DesertHeight = 0.22
+MountainHeight = 1.2
+WaterColor = Color(0.1, 0.34, 0.7, 1)
+WetlandsColor = Color(0.18, 0.47, 0.24, 1)
+PlainsColor = Color(0.49, 0.71, 0.28, 1)
+ForestColor = Color(0.11, 0.42, 0.16, 1)
+DesertColor = Color(0.83, 0.72, 0.42, 1)
+MountainColor = Color(0.55, 0.55, 0.58, 1)

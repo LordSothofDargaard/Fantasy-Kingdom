@@ -1,0 +1,357 @@
+[gd_scene load_steps=7 format=4]
+
+[ext_resource type="Script" path="res://Scripts/UI/UIManager.cs" id="1_uimgr"]
+[ext_resource type="Script" path="res://Scripts/UI/PlanetPreviewController.cs" id="2_prevw"]
+[ext_resource type="Script" path="res://Scripts/Generation/PlanetGenerator.cs" id="3_gen"]
+[ext_resource type="Resource" path="res://Resources/DefaultPlanetSettings.tres" id="4_settings"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.07, 0.09, 0.13, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.78, 0.82, 0.9, 1)
+ambient_light_energy = 1.0
+
+[sub_resource type="Theme" id="Theme_1"]
+default_font_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.1, 0.12, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.19, 0.24, 0.31, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_top = 14.0
+content_margin_right = 14.0
+content_margin_bottom = 14.0
+
+[node name="FantasyKingdomPlanetBuilder" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1")
+script = ExtResource("1_uimgr")
+DefaultSettings = ExtResource("4_settings")
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 14.0
+offset_right = -14.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainSplit" type="HSplitContainer" parent="RootMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 360
+
+[node name="SettingsPanel" type="Panel" parent="RootMargin/MainSplit"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="SettingsMargin" type="MarginContainer" parent="RootMargin/MainSplit/SettingsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsVBox" type="VBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Fantasy-Kingdom Planet Builder"
+
+[node name="SubtitleLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+modulate = Color(0.78, 0.82, 0.9, 1)
+text = "Desktop planet authoring tool"
+
+[node name="PlanetSizeRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlanetSizeLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/PlanetSizeRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Planet Size"
+
+[node name="PlanetSizeOptionButton" type="OptionButton" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/PlanetSizeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LandmassModeRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LandmassModeLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/LandmassModeRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Land Masses"
+
+[node name="LandmassModeOptionButton" type="OptionButton" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/LandmassModeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LandSummaryRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LandPercentLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/LandSummaryRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Land %"
+
+[node name="LandPercentValue" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/LandSummaryRow"]
+layout_mode = 2
+text = "0%"
+
+[node name="WaterRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WaterLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WaterRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Water %"
+
+[node name="WaterSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WaterRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="WaterValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WaterRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="WetlandsRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="WetlandsLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WetlandsRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Wetlands %"
+
+[node name="WetlandsSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WetlandsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="WetlandsValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/WetlandsRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="PlainsRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlainsLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/PlainsRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Plains %"
+
+[node name="PlainsSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/PlainsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="PlainsValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/PlainsRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="ForestRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ForestLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/ForestRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Forest %"
+
+[node name="ForestSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/ForestRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="ForestValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/ForestRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="DesertRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DesertLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/DesertRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Desert %"
+
+[node name="DesertSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/DesertRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="DesertValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/DesertRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="MountainsRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MountainsLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainsRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Mountains %"
+
+[node name="MountainsSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 0.1
+
+[node name="MountainsValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainsRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="NoiseScaleRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NoiseScaleLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/NoiseScaleRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Noise Scale"
+
+[node name="NoiseScaleSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/NoiseScaleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10.0
+step = 0.001
+
+[node name="NoiseScaleValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/NoiseScaleRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="MountainNoiseScaleRow" type="HBoxContainer" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MountainNoiseScaleLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainNoiseScaleRow"]
+custom_minimum_size = Vector2(115, 0)
+layout_mode = 2
+text = "Mountain Noise"
+
+[node name="MountainNoiseScaleSlider" type="HSlider" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainNoiseScaleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.001
+max_value = 10.0
+step = 0.001
+
+[node name="MountainNoiseScaleValueLabel" type="Label" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox/MountainNoiseScaleRow"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+horizontal_alignment = 2
+
+[node name="Spacer" type="Control" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="GeneratePlanetButton" type="Button" parent="RootMargin/MainSplit/SettingsPanel/SettingsMargin/SettingsVBox"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Generate Planet"
+
+[node name="PreviewPanel" type="Panel" parent="RootMargin/MainSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1")
+
+[node name="PreviewMargin" type="MarginContainer" parent="RootMargin/MainSplit/PreviewPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreviewViewportContainer" type="SubViewportContainer" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="PreviewViewport" type="SubViewport" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer"]
+disable_3d = false
+usage = 0
+render_target_update_mode = 4
+size = Vector2i(1280, 900)
+transparent_bg = false
+msaa_3d = 2
+
+[node name="PreviewRoot" type="Node3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport"]
+script = ExtResource("2_prevw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot"]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot"]
+transform = Transform3D(0.819152, 0.24240388, -0.51983684, 0, 0.9063078, 0.42261827, 0.57357645, -0.34618866, 0.74240386, 0, 6, 0)
+light_energy = 2.1
+shadow_enabled = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 3, 6)
+light_color = Color(0.63, 0.72, 0.94, 1)
+light_energy = 1.2
+
+[node name="Camera3D" type="Camera3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot"]
+transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 2.8, 14)
+current = true
+
+[node name="PlanetPivot" type="Node3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot"]
+
+[node name="PlanetGenerator" type="Node3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot/PlanetPivot"]
+script = ExtResource("3_gen")
+
+[node name="PlanetMesh" type="MeshInstance3D" parent="RootMargin/MainSplit/PreviewPanel/PreviewMargin/PreviewViewportContainer/PreviewViewport/PreviewRoot/PlanetPivot/PlanetGenerator"]
